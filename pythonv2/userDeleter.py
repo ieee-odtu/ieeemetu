@@ -3,7 +3,7 @@ import httplib2
 from apiclient import errors
 from apiclient.discovery import build
 from oauth2client.client import OAuth2WebServerFlow
-from oauth2client.tools import run
+from oauth2client.tools import run_flow
 from oauth2client.file import Storage
 from apiclient.http import BatchHttpRequest
 import json
@@ -15,7 +15,7 @@ def Auth(setFile):
 	if credentials == None or credentials.invalid:
 		flow = OAuth2WebServerFlow(settings['CLIENT_ID'], settings['CLIENT_SECRET'], 
 				settings['OAUTH_SCOPE'], settings['REDIRECT_URI'])
-		credentials = run(flow,storage)
+		credentials = run_flow(flow,storage)
 	return credentials.authorize(http=httplib2.Http())
 
 def getMembersGroups(mId, domain='ieee.metu.edu.tr'):
